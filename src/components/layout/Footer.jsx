@@ -5,30 +5,12 @@ import { Mail, Phone, MapPin, Linkedin, ExternalLink, Building, Code, Settings }
 
 const Footer = () => {
   const footerRef = useRef(null);
-  const titleRef = useRef(null);
   const contentRef = useRef(null);
-  const bottomRef = useRef(null);
   const { contextSafe } = useGSAP({ scope: footerRef });
 
   // Scroll-triggered animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title animation
-      gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
       // Content animation
       gsap.fromTo(contentRef.current,
         { opacity: 0, y: 30 },
@@ -40,22 +22,6 @@ const Footer = () => {
           scrollTrigger: {
             trigger: contentRef.current,
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-
-      // Bottom bar animation
-      gsap.fromTo(bottomRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: bottomRef.current,
-            start: 'top 90%',
             toggleActions: 'play none none reverse'
           }
         }
@@ -81,11 +47,6 @@ const Footer = () => {
       <div className="container">
         {/* Main Content */}
         <div className="footer__main">
-          {/* Title */}
-          <div ref={titleRef} className="footer__title">
-            <h2>Contactez-nous</h2>
-          </div>
-
           {/* Content Grid */}
           <div ref={contentRef} className="footer__content">
             {/* Left: Company Info */}
