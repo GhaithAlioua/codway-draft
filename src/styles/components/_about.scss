@@ -1,0 +1,233 @@
+.about {
+  min-height: 100vh;
+  background: #000000;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0;
+    padding: 0 2rem;
+    text-align: left;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+
+    @include mobile {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__inspiring-text {
+    font-size: 4rem;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 6rem;
+    max-width: 100%;
+    text-align: left;
+    padding: 0;
+    margin-left: 0;
+
+    @include mobile {
+      font-size: 2.4rem;
+      max-width: 100%;
+      margin-bottom: 4rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 6rem;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 0;
+    position: relative;
+    min-height: 80px;
+    cursor: pointer;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(59, 130, 246, 0.95) 0%, 
+        rgba(37, 99, 235, 0.9) 30%, 
+        rgba(29, 78, 216, 0.85) 60%, 
+        rgba(30, 58, 138, 0.9) 100%
+      );
+      transform: translateX(-100%);
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 0;
+    }
+
+    &:hover::before {
+      transform: translateX(0);
+    }
+
+    // Step positioning - each item moves progressively to the right
+    &:nth-child(1) {
+      // We automate - 5% from left edge
+      .about__line {
+        margin-left: 5%;
+      }
+    }
+
+    &:nth-child(2) {
+      // We develop - 30% from left edge
+      .about__line {
+        margin-left: 30%;
+      }
+    }
+
+    &:nth-child(3) {
+      // We manage - 55% from left edge
+      .about__line {
+        margin-left: 55%;
+      }
+    }
+
+    &:nth-child(4) {
+      // We deliver - 75% from left edge (25% from right edge)
+      .about__line {
+        margin-left: 75%;
+      }
+    }
+
+    @include mobile {
+      padding: 1.5rem 0;
+      min-height: 60px;
+      
+      // Safe spacing on mobile to prevent overflow
+      &:nth-child(1) {
+        .about__line {
+          margin-left: 3%;
+        }
+      }
+
+      &:nth-child(2) {
+        .about__line {
+          margin-left: 28%;
+        }
+      }
+
+      &:nth-child(3) {
+        .about__line {
+          margin-left: 53%;
+        }
+      }
+
+      &:nth-child(4) {
+        .about__line {
+          margin-left: 73%;
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      // Conservative positioning for very small screens to prevent overflow
+      &:nth-child(1) {
+        .about__line {
+          margin-left: 2%;
+        }
+      }
+
+      &:nth-child(2) {
+        .about__line {
+          margin-left: 25%;
+        }
+      }
+
+      &:nth-child(3) {
+        .about__line {
+          margin-left: 48%;
+        }
+      }
+
+      &:nth-child(4) {
+        .about__line {
+          margin-left: 66%;
+        }
+      }
+    }
+  }
+
+  &__line {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile {
+      font-size: 1.8rem;
+      max-width: 85%;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      max-width: 80%;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.2rem;
+      max-width: 75%;
+    }
+
+    @media (max-width: 360px) {
+      font-size: 1rem;
+      max-width: 70%;
+    }
+  }
+
+}
+
+// Glitch effects
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+

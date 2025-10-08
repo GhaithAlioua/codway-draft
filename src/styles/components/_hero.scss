@@ -1,0 +1,137 @@
+// Hero Section Styles
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #000;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0;
+    animation: imageFadeIn 4s ease-out 0.5s forwards;
+  }
+
+  &__image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    
+    .darkveil-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 0 60px 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+
+  &__content {
+    text-align: left;
+    color: $color-white;
+  }
+
+  &__title {
+    font-size: 8rem;
+    font-weight: 200;
+    color: $color-white;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(50px);
+
+    @include mobile {
+      font-size: 5rem;
+    }
+  }
+}
+
+
+// Legendary Hero Animations
+@keyframes imageFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes imageZoomOut {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes textSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@include mobile {
+  .hero {
+    .container {
+      padding-bottom: 40px;
+    }
+  }
+}

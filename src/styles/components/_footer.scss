@@ -1,0 +1,286 @@
+// Beautiful Footer Design
+.footer {
+  position: relative;
+  background-color: #000000;
+  color: #ffffff;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 80px;
+
+  .container {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 0;
+    max-height: calc(100vh - 160px);
+  }
+
+  // Main Content
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    flex: 1;
+  }
+
+  // Title Section
+  &__title {
+    text-align: center;
+    margin-bottom: 4rem;
+
+    h2 {
+      font-size: 4rem;
+      font-weight: 300;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+
+      @include mobile {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  // Content Grid
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+  }
+
+  // Left: Company Info
+  &__left {
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+
+      .footer__brand-icon {
+        width: 3rem;
+        height: 3rem;
+        color: #3b82f6;
+        flex-shrink: 0;
+      }
+
+      .footer__brand-text {
+        h3 {
+          font-size: 2rem;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0 0 0.5rem 0;
+
+          @include mobile {
+            font-size: 1.5rem;
+          }
+        }
+
+        p {
+          font-size: 1rem;
+          color: rgba(255, 255, 255, 0.7);
+          font-weight: 300;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          margin: 0;
+        }
+      }
+    }
+
+    .footer__description {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+  }
+
+  // Center: Services
+  &__center {
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 3rem;
+        height: 2px;
+        background: #3b82f6;
+      }
+    }
+
+    .footer__services {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .footer__service {
+      .footer__service-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+
+        .footer__service-icon {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: #3b82f6;
+          flex-shrink: 0;
+        }
+
+        h4 {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #ffffff;
+          margin: 0;
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // Right: Contact & Social
+  &__right {
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 3rem;
+        height: 2px;
+        background: #3b82f6;
+      }
+    }
+
+    .footer__contact-info {
+      margin-bottom: 2rem;
+    }
+
+    .footer__contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .footer__contact-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: #3b82f6;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+      }
+
+      .footer__contact-details {
+        .footer__contact-label {
+          display: block;
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+        }
+
+        .footer__contact-link {
+          color: #ffffff;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #3b82f6;
+          }
+        }
+
+        .footer__contact-text {
+          color: rgba(255, 255, 255, 0.8);
+          line-height: 1.5;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .footer__social {
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin-bottom: 1rem;
+      }
+
+      .footer__social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .footer__social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+        padding: 0.5rem 0;
+
+        &:hover {
+          color: #3b82f6;
+        }
+
+        .footer__social-icon {
+          width: 1.25rem;
+          height: 1.25rem;
+          color: #3b82f6;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+}
+
+// Responsive Design
+@include mobile {
+  .footer {
+    &__content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+}

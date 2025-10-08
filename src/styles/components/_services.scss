@@ -1,0 +1,207 @@
+// Services Section - No Gap
+.section--services {
+  position: relative;
+  padding: 0 0 8rem 0;
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+  margin-top: 0;
+
+  .container {
+    @include container;
+  }
+
+  .services__header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 5rem 0 0 0;
+  }
+
+  .services__title {
+    @include heading-2;
+    color: #fff;
+    margin: 0;
+
+    @include mobile {
+      font-size: $font-size-3xl;
+    }
+  }
+}
+
+// Services Grid - Exact Lugano L*3 Layout
+.services__grid {
+  display: flex;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  height: 70vh;
+  min-height: 400px;
+}
+
+// Service Card - Exact Lugano L*3 Card
+.service__card {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  // No card animation - only content animates
+}
+
+// Service Content - Exact Lugano Structure
+.service__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.service__number {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.3);
+  z-index: 4;
+}
+
+// Service Details - EXACT Lugano L*3 Styling
+.service__details {
+  position: absolute;
+  bottom: 0;
+  right: 0; // Right aligned
+  width: 75%; // 75% width as specified
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  z-index: 2;
+  box-sizing: border-box;
+  margin: 0;
+  // EXACT Lugano animation - transform translateY (less so title is visible)
+  transform: translateY(40%);
+  transition: 
+    transform 0.8s cubic-bezier(1, 0, 0.25, 0.995),
+    max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  // Ensure consistent collapsed height but allow expansion
+  min-height: 100px;
+  max-height: 100px; // Collapsed state height
+  overflow: hidden;
+}
+
+// Allow expansion on hover with smooth animation
+.service__card:hover .service__details {
+  max-height: 300px; // Smooth expansion to accommodate content
+  padding: 2rem; // Slightly more padding when expanded
+}
+
+.service__title {
+  font-size: 1.2rem; // Smaller font to fit in one line
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.5rem 0;
+  color: #000;
+  // Ensure text fits in one line
+  white-space: nowrap;
+}
+
+.service__description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+}
+
+// EXACT Lugano hover animations
+@media (hover: hover) {
+  .service__card:hover .service__details {
+    transform: translateY(0);
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .service__card:hover .service__description {
+    opacity: 1;
+  }
+}
+
+// Fallback for non-hover devices
+@media (hover: none) {
+  .service__details {
+    transform: translateY(0);
+  }
+}
+
+// Service Background - Exact Lugano L*3 Background
+.service__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.service__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.service__card:hover .service__image {
+  transform: scale(1.1);
+}
+
+// Responsive adjustments - Exact Lugano L*3
+@media (max-width: 991px) {
+  .services__grid {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+
+  .service__card {
+    height: 40vh;
+    min-height: 250px;
+  }
+
+  .service__content {
+    padding: 1.5rem;
+  }
+
+  .service__number {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .service__title {
+    font-size: 1.3rem;
+  }
+
+  .service__description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .service__content {
+    padding: 1.5rem;
+  }
+
+  .service__title {
+    font-size: 1.25rem;
+  }
+
+  .service__description {
+    font-size: 0.85rem;
+  }
+}
