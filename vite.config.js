@@ -33,11 +33,13 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: true,
     rollupOptions: {
+      external: [],
       output: {
         manualChunks: {
           vendor: ["react", "react-dom"],
           animations: ["gsap", "@gsap/react"],
           icons: ["lucide-react"],
+          webgl: ["ogl"],
         },
       },
     },
