@@ -74,7 +74,7 @@
 // Service Details - EXACT Lugano L*3 Styling
 .service__details {
   position: absolute;
-  bottom: 0;
+  bottom: 0; // Bottom right positioning - same as desktop
   right: 0; // Right aligned
   width: 75%; // 75% width as specified
   background: rgba(255, 255, 255, 0.95);
@@ -84,7 +84,7 @@
   box-sizing: border-box;
   margin: 0;
   // EXACT Lugano animation - transform translateY (less so title is visible)
-  transform: translateY(40%);
+  transform: translateY(40%); // Move down - same as desktop
   transition: 
     transform 0.8s cubic-bezier(1, 0, 0.25, 0.995),
     max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -97,6 +97,7 @@
 
 // Allow expansion on hover with smooth animation
 .service__card:hover .service__details {
+  transform: translateY(0); // Slide up to fully visible
   max-height: 300px; // Smooth expansion to accommodate content
   padding: 2rem; // Slightly more padding when expanded
 }
@@ -139,6 +140,26 @@
   }
 }
 
+// Mobile click functionality
+.service__hint {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+// Mobile expanded state
+.service__card--expanded .service__details {
+  transform: translateY(0);
+  max-height: 400px;
+  padding: 2rem;
+}
+
+.service__card--expanded .service__description {
+  opacity: 1;
+}
+
 // Service Background - Exact Lugano L*3 Background
 .service__background {
   position: absolute;
@@ -161,47 +182,313 @@
   transform: scale(1.1);
 }
 
-// Responsive adjustments - Exact Lugano L*3
+// Mobile - EXACT same as desktop, just stacked vertically
 @media (max-width: 991px) {
-  .services__grid {
-    flex-direction: column;
-    height: auto;
-    min-height: auto;
+  .services__grid--mobile {
+    display: flex;
+    flex-direction: column; // Stack vertically instead of horizontally
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    height: auto; // Auto height for stacked cards
+    gap: 1.5rem; // Space between cards
+    padding: 0 1rem;
   }
 
   .service__card {
-    height: 40vh;
-    min-height: 250px;
+    height: 60vh; // Each card takes 60% of viewport height
+    min-height: 400px;
   }
 
-  .service__content {
+  // Mobile-specific service box sizing - keep 75% width like desktop
+  .service__details {
+    width: 75%; // Same as desktop - 75% width
+    right: 0;
     padding: 1.5rem;
   }
 
-  .service__number {
-    top: 1.5rem;
-    right: 1.5rem;
-  }
-
   .service__title {
-    font-size: 1.3rem;
+    font-size: 1.1rem; // Smaller for mobile
+    white-space: normal; // Allow text wrapping on mobile
+    line-height: 1.3;
   }
 
   .service__description {
-    font-size: 0.85rem;
+    font-size: 0.85rem; // Smaller for mobile
+    line-height: 1.4;
+  }
+
+  // Mobile click functionality - EXACT same as desktop hover
+  .service__card--expanded .service__details {
+    transform: translateY(0);
+    max-height: 250px; // Smaller height for mobile
+    padding: 2rem;
+  }
+
+  .service__card--expanded .service__description {
+    opacity: 1;
+  }
+
+  .service__card--expanded .service__image {
+    transform: scale(1.1);
   }
 }
 
-@media (max-width: 479px) {
-  .service__content {
-    padding: 1.5rem;
+// Small Mobile - adjust heights and text
+@media (max-width: 768px) {
+  .services__grid--mobile {
+    gap: 1rem;
+  }
+
+  .service__card {
+    height: 55vh;
+    min-height: 350px;
+  }
+
+  .service__details {
+    padding: 1.2rem;
   }
 
   .service__title {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   .service__description {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .service__card--expanded .service__details {
+    max-height: 200px;
+    padding: 1.5rem;
+  }
+}
+
+// Extra Small Mobile - further adjustments
+@media (max-width: 479px) {
+  .services__grid--mobile {
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .service__card {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .service__details {
+    padding: 1rem;
+  }
+
+  .service__title {
+    font-size: 0.95rem;
+  }
+
+  .service__description {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .service__card--expanded .service__details {
+    max-height: 180px;
+    padding: 1.2rem;
+  }
+}
+
+// Mobile Carousel Styles
+@include mobile {
+  .services__carousel {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+
+  .service__card--carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: #fff;
+    overflow: hidden;
+    
+    // NO HOVER STATES AT ALL - Mobile is CLICK ONLY!
+    
+    // Ensure consistent card structure
+    .service__content {
+      position: relative;
+      z-index: 3;
+      height: 100%;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    
+    .service__background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .service__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      // SMOOTH image transitions to prevent jitter
+      transition: transform 0.3s ease;
+    }
+    
+    .service__details {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 75%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem;
+      z-index: 2;
+      box-sizing: border-box;
+      // EXACT same as desktop - ensure title is visible
+      transform: translateY(30%); // Show more of the title
+      min-height: 100px;
+      max-height: 100px;
+      overflow: hidden;
+      // EXACT desktop animation timing and easing
+      transition: 
+        transform 0.8s cubic-bezier(1, 0, 0.25, 0.995),
+        max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    // FORCE collapsed state when NOT expanded
+    &:not(.service__card--expanded) .service__details {
+      transform: translateY(30%) !important; // Show more of the title
+      max-height: 100px !important;
+      padding: 1.5rem 2rem !important;
+    }
+    
+    .service__title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 0.5rem 0;
+      color: #000;
+      white-space: nowrap;
+    }
+    
+    .service__description {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.7);
+      margin: 0;
+      opacity: 0;
+      display: none; // HIDDEN by default
+      // SMOOTH fade in/out when shown
+      transition: opacity 0.4s ease 0.2s;
+    }
+    
+    .service__hint {
+      font-size: 0.75rem;
+      color: rgba(0, 0, 0, 0.5);
+      font-style: italic;
+      margin-top: 0.5rem;
+      text-align: left;
+      margin-bottom: 0;
+      opacity: 1;
+      display: block; // VISIBLE by default
+      // SMOOTH fade in/out
+      transition: opacity 0.3s ease;
+    }
+    
+    // EXPANDED STATE - EXACT desktop animation
+    &.service__card--expanded .service__details {
+      transform: translateY(0); // Slide up to fully visible
+      max-height: 300px; // Smooth expansion to accommodate content
+      padding: 2rem; // Slightly more padding when expanded
+      // EXACT desktop hover timing
+      transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    
+    &.service__card--expanded .service__description {
+      display: block;
+      opacity: 1;
+    }
+    
+    &.service__card--expanded .service__hint {
+      opacity: 0;
+      display: none;
+    }
+    
+    // COMPLETELY DISABLE ALL HOVER FOR MOBILE CAROUSEL
+    &:hover .service__details,
+    &:hover .service__description,
+    &:hover .service__image {
+      /* NO HOVER EFFECTS - Mobile is CLICK ONLY! */
+      transform: none;
+    }
+  }
+
+
+  .services__counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+  }
+}
+
+// Small Mobile Carousel Adjustments
+@media (max-width: 480px) {
+  .services__carousel {
+    height: 60vh;
+    min-height: 350px;
+  }
+  
+  
+  .services__counter {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .service__card--carousel {
+    .service__content {
+      padding: 1.5rem;
+    }
+    
+    .service__details {
+      padding: 1rem 1.5rem;
+      width: 80%;
+    }
+    
+    .service__title {
+      font-size: 1rem;
+    }
+    
+    .service__description {
+      font-size: 0.8rem;
+    }
+    
+    .service__hint {
+      font-size: 0.7rem;
+    }
+    
+    &.service__card--expanded .service__details {
+      max-height: 250px;
+      padding: 1.5rem;
+    }
   }
 }

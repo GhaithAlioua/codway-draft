@@ -1,14 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { Menu, X } from 'lucide-react';
+import MobileMenu from '../MobileMenu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const headerRef = useRef(null);
-  const menuRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const hamburgerRef = useRef(null);
-  const brandBgRef = useRef(null);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Lugano's exact scroll effect - Updated for ScrollSmoother
   useEffect(() => {
@@ -42,32 +56,60 @@ const Header = () => {
     };
   }, []);
 
-  // GSAP animations for menu
+  // GSAP animations for mobile menu
   const { contextSafe } = useGSAP({ scope: headerRef });
 
+  // Animate hamburger icon entrance
+  useEffect(() => {
+    if (hamburgerRef.current && isMobile) {
+      const icon = hamburgerRef.current.querySelector('svg');
+      if (icon) {
+        // Reset and animate in
+        gsap.set(icon, { scale: 0, rotation: 0 });
+        gsap.to(icon, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.3,
+          ease: "back.out(1.7)"
+        });
+      }
+    }
+  }, [isMenuOpen, isMobile]);
+
   const toggleMenu = contextSafe(() => {
-    setIsMenuOpen(!isMenuOpen);
+    if (!isMobile) return;
     
-    if (!isMenuOpen) {
-      // Open menu animation
-      gsap.fromTo(menuRef.current, 
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
-      );
-      
-      // Animate menu items
-      gsap.fromTo('.menu-item', 
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.4, stagger: 0.1, delay: 0.2, ease: "power2.out" }
-      );
-    } else {
-      // Close menu animation
-      gsap.to(menuRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.3,
-        ease: "power2.in"
-      });
+    const newMenuState = !isMenuOpen;
+    setIsMenuOpen(newMenuState);
+    
+    // Animate hamburger icon transformation
+    if (hamburgerRef.current) {
+      const icon = hamburgerRef.current.querySelector('svg');
+      if (icon) {
+        if (newMenuState) {
+          // Opening: rotate and scale out, then scale in with X
+          gsap.to(icon, {
+            rotation: 90,
+            scale: 0,
+            duration: 0.2,
+            ease: "power2.inOut",
+            onComplete: () => {
+              // Icon will be replaced by React re-render
+            }
+          });
+        } else {
+          // Closing: rotate and scale out, then scale in with Menu
+          gsap.to(icon, {
+            rotation: -90,
+            scale: 0,
+            duration: 0.2,
+            ease: "power2.inOut",
+            onComplete: () => {
+              // Icon will be replaced by React re-render
+            }
+          });
+        }
+      }
     }
   });
 
@@ -113,7 +155,7 @@ const Header = () => {
       className={`navbar ${isMenuOpen ? 'navbar--open' : ''} ${isScrolled ? 'navbar--scrolled' : ''}`}
     >
       <div className="container navbar__container">
-        {/* Left: Brand Section */}
+        {/* Brand Section - Always visible */}
         <div className="navbar__brand">
           <a href="#hero" onClick={(e) => handleNavClick(e, '#hero')} className="navbar__brand-link">
             <img 
@@ -124,64 +166,77 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Center: Navigation Links */}
-        <nav className="navbar__nav">
-          <ul className="navbar__links">
-            {navigationItems.map((item, index) => (
-              <li key={index} className="navbar__item">
-                <a 
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className="navbar__link underline-link"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* Desktop Navigation - Hidden on mobile */}
+        {!isMobile && (
+          <>
+            {/* Center: Navigation Links */}
+            <nav className="navbar__nav">
+              <ul className="navbar__links">
+                {navigationItems.map((item, index) => (
+                  <li key={index} className="navbar__item">
+                    <a 
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className="navbar__link underline-link"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-        {/* Right: CTA */}
-        <div className="navbar__right">
-          {/* Contact Button */}
-          <a 
-            onClick={(e) => e.preventDefault()}
-            className="btn btn--nav-main"
-          >
-            <div className="btn__content">
-              <div>Contact</div>
-            </div>
-            <div className="btn__bg"></div>
-          </a>
-        </div>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`navbar__mobile-menu ${isMenuOpen ? 'navbar__mobile-menu--open' : ''}`}>
-        <ul className="navbar__mobile-links">
-          {navigationItems.map((item, index) => (
-            <li key={index} className="navbar__mobile-item">
+            {/* Right: CTA */}
+            <div className="navbar__right">
+              {/* Contact Button */}
               <a 
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="navbar__mobile-link"
+                onClick={(e) => e.preventDefault()}
+                className="btn btn--nav-main"
               >
-                {item.label}
+                <div className="btn__content">
+                  <div>Contact</div>
+                </div>
+                <div className="btn__bg"></div>
               </a>
-            </li>
-          ))}
-          <li className="navbar__mobile-item navbar__mobile-item-btm">
-            <div className="navbar__underline"></div>
-            <div>Codway IT</div>
-            <div className="u-text-light-200">
-              Solutions technologiques innovantes<br/>
-              Codway IT<br/>
-              Innovation & Excellence<br/>
-              CH-1000 Lausanne
             </div>
-          </li>
-        </ul>
+          </>
+        )}
+
+        {/* Mobile Hamburger Menu - Only visible on mobile */}
+        {isMobile && (
+          <button
+            ref={hamburgerRef}
+            onClick={toggleMenu}
+            className="navbar__hamburger"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        )}
       </div>
+
+      {/* Mobile Menu - Only visible on mobile */}
+      {isMobile && (
+        <MobileMenu
+          items={[
+            ...navigationItems.map(item => ({
+              label: item.label,
+              ariaLabel: `Go to ${item.label}`,
+              link: item.href
+            })),
+            {
+              label: 'Contact',
+              ariaLabel: 'Contact us',
+              link: '#contact'
+            }
+          ]}
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          onItemClick={handleNavClick}
+          accentColor="#3b82f6"
+        />
+      )}
     </header>
   );
 };

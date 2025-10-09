@@ -5,6 +5,11 @@
 @import './mixins';
 @import './animations';
 
+// Global Font Family
+* {
+  font-family: $font-family-primary;
+}
+
 // Swiper imports (must be before other styles)
 @import 'swiper/scss';
 @import 'swiper/scss/navigation';
@@ -17,6 +22,8 @@
 @import './components/services';
 @import './components/about';
 @import './components/footer';
+@import './components/mobile-menu';
+@import './components/dark-veil';
 
 // Global Utility Classes
 .sr-only {

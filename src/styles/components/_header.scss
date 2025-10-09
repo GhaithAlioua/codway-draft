@@ -31,7 +31,7 @@
     justify-content: space-between;
     position: relative;
     width: 100%;
-    padding: 0 !important;
+    padding: 0 0 0 2rem !important; // Left padding only, right padding removed
     margin: 0;
     max-width: none;
   }
@@ -43,7 +43,6 @@
     flex-shrink: 0;
     margin: 0;
     padding: 0;
-    margin-left: $space-4;
     height: 100%;
 
     &-link {
@@ -59,7 +58,7 @@
       object-fit: contain;
 
       @include mobile {
-        height: 120px;
+        height: 30px; // Proportionally bigger on mobile
       }
     }
   }
@@ -268,11 +267,6 @@
 
   // Mobile responsive adjustments
   @include mobile {
-    &__brand-logo {
-      width: 50px;
-      height: 50px;
-    }
-
     &__brand-name {
       font-size: $font-size-lg;
     }
@@ -478,14 +472,16 @@ body.show-cta .navbar__cta {
 @include mobile {
   .navbar {
     height: 70px;
-
-    &__brand-logo {
-      width: 45px;
-      height: 45px;
-    }
+    z-index: 1040; /* Higher than StaggeredMenu to ensure navbar is on top */
 
     &__brand-name {
       font-size: $font-size-base;
+    }
+
+    // Hide desktop navigation on mobile
+    &__nav,
+    &__right {
+      display: none !important;
     }
 
     // Mobile menu animations
@@ -628,5 +624,59 @@ body.show-cta .navbar__cta {
 
   .navbar__item.navbar__item-btm > div:not(.navbar__underline) {
     opacity: 0;
+  }
+
+  // Mobile menu is now handled by the responsive navbar
+}
+
+// Mobile Hamburger Button
+.navbar__hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  z-index: 1040; /* Higher than navbar (1030) */
+
+
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
+}
+
+// Mobile menu is now handled by MobileMenu component
+
+// Mobile Responsive Design
+@include mobile {
+  // Show hamburger button on mobile
+  .navbar__hamburger {
+    display: block;
+  }
+
+  // Hide desktop navigation on mobile
+  .navbar__nav,
+  .navbar__right {
+    display: none !important;
+  }
+
+  // Ensure navbar is above mobile menu
+  .navbar {
+    z-index: 1050 !important; /* Higher than mobile menu (1020) */
+  }
+
+  // Adjust container padding for mobile
+  .navbar__container {
+    padding: 0 1.5rem !important; // Slightly less padding on mobile
+  }
+}
+
+// Extra small mobile adjustments
+@media (max-width: 480px) {
+  .navbar__container {
+    padding: 0 1rem !important; // Even less padding on very small screens
   }
 }

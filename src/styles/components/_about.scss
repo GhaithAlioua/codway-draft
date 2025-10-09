@@ -130,34 +130,7 @@
       padding: 1.5rem 0;
       min-height: 60px;
       
-      // Safe spacing on mobile to prevent overflow
-      &:nth-child(1) {
-        .about__line {
-          margin-left: 3%;
-        }
-      }
-
-      &:nth-child(2) {
-        .about__line {
-          margin-left: 28%;
-        }
-      }
-
-      &:nth-child(3) {
-        .about__line {
-          margin-left: 53%;
-        }
-      }
-
-      &:nth-child(4) {
-        .about__line {
-          margin-left: 73%;
-        }
-      }
-    }
-
-    @media (max-width: 480px) {
-      // Conservative positioning for very small screens to prevent overflow
+      // Better spacing on mobile to prevent text truncation
       &:nth-child(1) {
         .about__line {
           margin-left: 2%;
@@ -172,13 +145,40 @@
 
       &:nth-child(3) {
         .about__line {
-          margin-left: 48%;
+          margin-left: 50%;
         }
       }
 
       &:nth-child(4) {
         .about__line {
-          margin-left: 66%;
+          margin-left: 70%;
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      // Conservative positioning for very small screens to prevent overflow
+      &:nth-child(1) {
+        .about__line {
+          margin-left: 1%;
+        }
+      }
+
+      &:nth-child(2) {
+        .about__line {
+          margin-left: 22%;
+        }
+      }
+
+      &:nth-child(3) {
+        .about__line {
+          margin-left: 45%;
+        }
+      }
+
+      &:nth-child(4) {
+        .about__line {
+          margin-left: 65%;
         }
       }
     }
@@ -199,23 +199,23 @@
     text-overflow: ellipsis;
 
     @include mobile {
-      font-size: 1.8rem;
-      max-width: 85%;
+      font-size: 1.6rem;
+      max-width: 90%;
     }
 
     @media (max-width: 768px) {
-      font-size: 1.5rem;
-      max-width: 80%;
+      font-size: 1.3rem;
+      max-width: 85%;
     }
 
     @media (max-width: 480px) {
-      font-size: 1.2rem;
-      max-width: 75%;
+      font-size: 1.1rem;
+      max-width: 80%;
     }
 
     @media (max-width: 360px) {
-      font-size: 1rem;
-      max-width: 70%;
+      font-size: 0.9rem;
+      max-width: 75%;
     }
   }
 
